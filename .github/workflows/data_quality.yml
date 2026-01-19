@@ -1,0 +1,48 @@
+name: Data Governance & Model Quality Pipeline
+
+# Trigger this pipeline on every push to the main branch or pull requests
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Check out the code from the repo
+    - uses: actions/checkout@v3
+
+    # 2. Set up Python 3.11
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    # 3. Install dependencies
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 4. Run Data Governance/Schema Checks
+    # We run a specific check to ensure data meets the schema contract
+    - name: Run Data Governance Checks
+      run: |
+        python -c "from src.data_loader import load_and_engineer_data; load_and_engineer_data()"
+
+    # 5. Run the Full Pipeline (Train & Test)
+    # If the script crashes (due to poor model performance or errors), this step fails
+    - name: Run Model Pipeline & Generate Artifacts
+      run: |
+        python main.py
+
+    # 6. (Optional) Archive the plots as artifacts so you can download them from GitHub
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: model-results
+        path: |
+          *.png

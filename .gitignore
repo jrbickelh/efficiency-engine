@@ -1,0 +1,17 @@
+cat <<EOT > .gitignore
+# Python Bytecode
+__pycache__/
+*.pyc
+
+# Jupyter Checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Environment (if you ever put your env in the folder)
+env/
+venv/
+.env
+
+# System Files
+.DS_Store
+EOT
