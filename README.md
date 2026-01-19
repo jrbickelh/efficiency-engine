@@ -47,7 +47,6 @@ The pipeline automatically benchmarks a Deep Neural Network (DNN) against an XGB
 | Feature | Visualization | Insight |
 |:---:|:---:|:---|
 | **Physics Check** | ![Physics](images/physics_check.png) | Demonstrates the model learns the inverse decay of MPG as Weight increases. |
-| **Explainability** | ![SHAP](images/shap_explanation.png) | SHAP values confirm that *Displacement* and *Weight* are the primary drivers of efficiency. |
 | **Data Quality** | ![Corr](images/correlation_matrix.png) | Identifies multicollinearity risks (e.g., Cylinders vs. Displacement) handled during preprocessing. |
 
 *(Note: Images are generated automatically during the pipeline run)*
